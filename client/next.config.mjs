@@ -6,6 +6,8 @@ const nextConfig = {
       "i.pinimg.com",
       "image.tmdb.org",
       "lh3.googleusercontent.com",
+      "m.media-amazon.com",
+      "ohkino.pl",
     ],
   },
 };

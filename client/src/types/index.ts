@@ -47,3 +47,11 @@ export type CurrentPlaying = {
   results: CurrentPlayingMovie[];
   total_pages: number;
 };
+export type News = {
+  date: string;
+  title: string;
+  description: string;
+  image: string;
+  author: string;
+  id: number;
+};

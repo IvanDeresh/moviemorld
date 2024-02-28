@@ -2,15 +2,16 @@ import React from "react";
 import CurrentlyPlaying from "@/components/CurrentlyPlaying";
 import ComingSoon from "@/components/ComingSoon";
 import AboutUs from "@/components/AboutUs";
+import NewsComponent from "@/components/News";
+import Hero from "@/components/Hero";
 const page = () => {
   return (
     <div className="my-[50px] font-montserrat">
-      <div className="w-full flex justify-center my-[50px] ">
-        <div className="bg-class h-[65vh] w-[90%] rounded-3xl"></div>
-      </div>
+      <Hero />
       <CurrentlyPlaying />
       <ComingSoon />
       <AboutUs />
+      <NewsComponent />
     </div>
   );
 };

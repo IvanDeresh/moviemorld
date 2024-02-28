@@ -69,7 +69,7 @@ const ComingSoon = React.memo(() => {
   };
 
   return (
-    <div className="my-[100px]">
+    <div className="my-[100px] relative">
       <h2 className="text-[20px] font-bold my-[50px] flex justify-between mx-[50px]">
         Coming Soon
         <span className="text-[14px]">
@@ -78,7 +78,7 @@ const ComingSoon = React.memo(() => {
       </h2>
 
       <div className="carousel-wrapper  ">
-        <div className="w-[60vw] flex justify-between gap-[50px] absolute top-[1450px]">
+        <div className="w-[60vw] flex justify-between gap-[50px] absolute top-[200px]">
           <button
             onClick={goToPrev}
             className="z-50 text-white bg-slate-200 w-[50px] h-[50px] rounded-full"

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateNewsDto } from './dto/create-news.dto';
 import { UpdateNewsDto } from './dto/update-news.dto';
-
+import { News, NewsModel } from './schemas/news.schema';
 @Injectable()
 export class NewsService {
   create(createNewsDto: CreateNewsDto) {
@@ -9,7 +9,7 @@ export class NewsService {
   }
 
   findAll() {
-    return `This action returns all news`;
+    return NewsModel.find();
   }
 
   findOne(id: number) {
@@ -21,6 +21,6 @@ export class NewsService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} news`;
+    return;
   }
 }

@@ -48,3 +48,10 @@
   background-image: url("../assets/img/bgwebsite.jpg");
   background-repeat: no-repeat;
 }
+.carousel-slide {
+  transition: all 0.3s ease;
+}
+
+.carousel-slide.slick-center {
+  transform: scale(1.2); /* збільшуємо розмір центрального слайда */
+}
