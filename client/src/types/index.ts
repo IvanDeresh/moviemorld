@@ -55,3 +55,8 @@ export type News = {
   author: string;
   id: number;
 };
+export type Props = {
+  params: {
+    id: string;
+  };
+};

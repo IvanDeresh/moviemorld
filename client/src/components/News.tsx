@@ -4,7 +4,7 @@ import Image from "next/image";
 import { fetchNewsData } from "@/func/index";
 import NewsCarusel from "./NewsCarusel";
 const NewsComponent = () => {
-  const [id, setId] = useState(1);
+  const [id, setId] = useState(4);
   const news = fetchNewsData();
   return (
     <div className="text-gray-500 font-montserrat  my-[100px]">

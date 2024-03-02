@@ -1,52 +1,30 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import React, { useState, useRef, useContext } from "react";
 import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
 import Image from "next/image";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import type { CurrentPlaying } from "@/types/index";
 import Link from "next/link";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import OrderButton from "./OrderButton";
+import { fetchMovies } from "@/func";
+type MovieMap = { [key: number]: boolean };
 
 const ComingSoon = React.memo(() => {
-  const [movies, setMovies] = useState<CurrentPlaying | null>(null);
+  const movies = fetchMovies();
+  const [hoveredMovies, setHoveredMovies] = useState<MovieMap>({});
   const sliderRef = useRef<Slider>(null);
-
-  useEffect(() => {
-    const fetchMovies = async () => {
-      try {
-        const response = await axios.get(
-          "https://api.themoviedb.org/3/movie/upcoming",
-          {
-            params: { language: "en-US", page: "2" },
-            headers: {
-              accept: "application/json",
-              Authorization:
-                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMTJiMmJjZDNhYTIyZDZiZThhN2Y3ZGM5ZDhlN2IxYSIsInN1YiI6IjY1ZDA4NzQ5ZTYyNzE5MDE4MTcxM2RhOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.8KnRoxBXrT9goCrF0kZ6F6eR9klZTM2PzaLXvhw4D5Q",
-            },
-          }
-        );
-        setMovies(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchMovies();
-  }, []);
 
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 1,
     centerMode: true,
-    centerPadding: "20px",
-
+    centerPadding: "0px",
     focusOnSelect: true,
     swipe: false,
     responsive: [
@@ -69,34 +47,48 @@ const ComingSoon = React.memo(() => {
   };
 
   return (
-    <div className="my-[100px] relative">
+    <div className="my-[100px] relative ">
       <h2 className="text-[20px] font-bold my-[50px] flex justify-between mx-[50px]">
         Coming Soon
-        <span className="text-[14px]">
+        <Link href="/pages/coming-soon" className="text-[14px]">
           see more <TrendingFlatIcon />
-        </span>
+        </Link>
       </h2>
 
       <div className="carousel-wrapper  ">
-        <div className="w-[60vw] flex justify-between gap-[50px] absolute top-[200px]">
+        <div className="w-full flex justify-between gap-[50px] absolute top-[200px]">
           <button
             onClick={goToPrev}
-            className="z-50 text-white bg-slate-200 w-[50px] h-[50px] rounded-full"
+            className="z-50 text-gray-500 bg-slate-200 w-[50px] h-[50px] rounded-full"
           >
             <ArrowBackIosIcon />
           </button>
           <button
             onClick={goToNext}
-            className="z-50  text-white absolute right-[13px] bg-slate-200 w-[50px] h-[50px] rounded-full"
+            className="z-50  text-gray-500 absolute right-[13px] bg-slate-200 w-[50px] h-[50px] rounded-full"
           >
             <ArrowForwardIosIcon />
           </button>
         </div>
-        <Slider ref={sliderRef} {...settings}>
+        <Slider className="ml-[50px]" ref={sliderRef} {...settings}>
           {movies &&
             movies.results.map((movie) => (
-              <Link href="/" key={movie.id} className="relatieve">
-                <div style={{ display: "flex", justifyContent: "center" }}>
+              <Link href="/" key={movie.id} className={`relative`}>
+                <div
+                  className="relative"
+                  onMouseEnter={() =>
+                    setHoveredMovies((prevHoveredMovies) => ({
+                      ...prevHoveredMovies,
+                      [movie.id]: true,
+                    }))
+                  }
+                  onMouseLeave={() =>
+                    setHoveredMovies((prevHoveredMovies) => ({
+                      ...prevHoveredMovies,
+                      [movie.id]: false,
+                    }))
+                  }
+                >
                   <Image
                     src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
                     alt={movie.title}
@@ -116,6 +108,14 @@ const ComingSoon = React.memo(() => {
                       {movie.vote_average.toFixed(1)} : IMD'b
                     </p>
                   </div>
+                  {hoveredMovies[movie.id] && (
+                    <Link
+                      href={`/pages/cinema/order/${movie.id}`}
+                      className="absolute top-0 left-[-1px] w-[73%] h-full flex justify-center items-center bg-black bg-opacity-50"
+                    >
+                      <OrderButton />
+                    </Link>
+                  )}
                 </div>
               </Link>
             ))}

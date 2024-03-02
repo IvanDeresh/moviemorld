@@ -5,18 +5,19 @@ import React from "react";
 const HeroComponent = React.memo(({ id }: { id: number }) => {
   const movies = fetchMovies();
   return (
-    <div>
+    <div className="">
       {movies?.results.map((item) => (
         <div>
           {id === item.id && (
             <div
               style={{
                 backgroundImage: `url(https://image.tmdb.org/t/p/original${item.backdrop_path})`,
-                width: "1000px",
+                width: "100vw",
                 height: "700px",
                 backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
               }}
-              className="rounded-3xl"
             ></div>
           )}
         </div>
