@@ -45,7 +45,7 @@ const Hero = React.memo(() => {
   };
 
   return (
-    <div className="mb-[50px] relative h-screen overflow-x-hidden">
+    <div className="mb-[50px] relative h-screen overflow-x-hidden overflow-y-hidden">
       <div className="absolute ">
         <HeroComponent id={id} />
       </div>

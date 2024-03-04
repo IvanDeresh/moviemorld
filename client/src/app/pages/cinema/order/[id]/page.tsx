@@ -11,11 +11,12 @@ const MovieDisplay = ({ params: { id } }: Props) => {
   const filteredMovies2 = movies2?.results.filter((m) => m.id === Number(id));
   return (
     <div className="h-auto z-50 bg-[#121212] text-black shadow-2xl">
-      <div>
+      <div className="">
         {filteredMovies?.map((movies) => (
           <div>
             <MovieCard
               title={movies.title}
+              backdrop_path={movies.backdrop_path}
               poster_path={movies.poster_path}
               vote_average={movies.vote_average}
             />
@@ -27,6 +28,7 @@ const MovieDisplay = ({ params: { id } }: Props) => {
               <div>
                 <MovieCard
                   title={movies.title}
+                  backdrop_path={movies.backdrop_path}
                   poster_path={movies.poster_path}
                   vote_average={movies.vote_average}
                 />

@@ -1,66 +1,92 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { addProduct, removeProduct } from "@/store/features/seat-slice";
+import {
+  addProduct,
+  removeProduct,
+  clearCart,
+} from "@/store/features/seat-slice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store";
 import DeleteIcon from "@mui/icons-material/Delete";
+import OrderModelWindow from "./OrderModelWindow";
+const date = [
+  { id: 1, day: 1 },
+  { id: 2, day: 2 },
+  { id: 3, day: 3 },
+  { id: 4, day: 4 },
+  { id: 5, day: 5 },
+  { id: 6, day: 6 },
+  { id: 7, day: 7 },
+];
+const hours = [
+  { id: 1, time: "17:00" },
+  { id: 2, time: "18:45" },
+  { id: 3, time: "19:30" },
+  { id: 4, time: "20:15" },
+  { id: 5, time: "22:00" },
+  { id: 6, time: "7:45" },
+  { id: 7, time: "11:30" },
+];
+const booked = [34, 49, 63, 72, 46, 50, 74, 67, 56, 68, 69, 75, 73];
 const MovieCard = ({
   title,
+  backdrop_path,
   vote_average,
   poster_path,
 }: {
   title: string;
+  backdrop_path: string;
   poster_path: string;
   vote_average: number;
 }) => {
+  const [selected, setSelected] = useState<number[]>([]);
+  const [backdropOrPoster, setBackdropOrPoster] = useState<string>(poster_path);
+  const [time, setTime] = useState<string>("17:00");
+  const [modalVisibility, setModalVisibility] = useState(false);
+  const [dates, setDates] = useState<number>(1);
+  const seats = [];
   const dispatch = useDispatch();
   const seatetes = useSelector((state: RootState) => state.seates.value);
-  const [selected, setSelected] = useState<number[]>([]);
-  const booked = [34, 49, 63, 72, 46, 50, 74, 67, 56, 68, 69, 75, 73];
-  const seats = [];
+  const purchaes = seatetes
+    .reduce((total, seat) => total + seat.price, 0)
+    .toFixed(2);
   for (let i = 0; i < 7; i++) {
     for (let j = 1; j <= 12; j++) {
       const seatId = 3 * 10 + (i - 2) * 12 + j;
-      seats.push({ id: seatId, row: i + 1, seat: j, price: 70 / (i + 1) });
+      seats.push({ id: seatId, row: i + 1, seat: j, price: 12.5 * (i + 1) });
     }
   }
-  const [time, setTime] = useState<string>("17:00");
-  const [dates, setDates] = useState<number>(1);
-  const date = [
-    { id: 1, day: 1 },
-    { id: 2, day: 2 },
-    { id: 3, day: 3 },
-    { id: 4, day: 4 },
-    { id: 5, day: 5 },
-    { id: 6, day: 6 },
-    { id: 7, day: 7 },
-  ];
-  const hours = [
-    { id: 1, time: "17:00" },
-    { id: 2, time: "18:45" },
-    { id: 3, time: "19:30" },
-    { id: 4, time: "20:15" },
-    { id: 5, time: "22:00" },
-    { id: 6, time: "7:45" },
-    { id: 7, time: "11:30" },
-  ];
+
   useEffect(() => {
-    console.log(selected);
-  }, [selected]);
+    const handleWindowResize = () => {
+      const widthOfWindow = window.innerWidth;
+      setBackdropOrPoster(
+        widthOfWindow <= 600 || widthOfWindow >= 1200
+          ? poster_path
+          : backdrop_path
+      );
+    };
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, [backdrop_path, poster_path]);
   return (
-    <div className="flex font-montserrat text-white">
-      <div className="relative">
+    <div className="flex max-xl:flex-col max-xl:flex font-montserrat text-white">
+      <div className="relative ">
         <Image
-          src={`https://image.tmdb.org/t/p/original${poster_path}`}
+          src={`https://image.tmdb.org/t/p/original${backdropOrPoster}`}
           alt={title}
-          width={610}
-          height={1000}
+          width={backdropOrPoster === poster_path ? 610 : 1200}
+          height={2000}
         />
-        <div className="border-b-2 border-red-700 top-[200px] left-[100px] text-[20px] font-bold absolute">
+        <div className="border-b-2 border-red-700 top-[200px] max-xl:top-[100px] left-[100px] text-[20px] font-bold absolute">
           {title}
         </div>
-        <div className="flex justify-around flex-col items-center py-[50px] w-[409px] h-[524px] bg-[#121212] absolute top-[270px] left-[100px]">
+        <div className="flex  max-md:left-[40px] justify-around flex-col items-center py-[50px] w-[409px] h-[524px] bg-[#121212] absolute max-xl:top-[170px] top-[270px] left-[100px]">
           <h1 className="text-[25px]">SELECTED SEATS</h1>
           <div
             className={`flex flex-col w-[70%] gap-[20px] ${
@@ -76,6 +102,7 @@ const MovieCard = ({
                   onClick={() => {
                     dispatch(removeProduct(item.id));
                   }}
+                  className="cursor-pointer"
                 >
                   <DeleteIcon />
                 </div>
@@ -83,20 +110,29 @@ const MovieCard = ({
             ))}
           </div>
           <div className="flex flex-col items-center gap-[10px]">
-            <button className="w-[200px] h-[40px] rounded-xl bg-[#8D090D]">
-              Purchaes:{" "}
-              {seatetes
-                .reduce((total, seat) => total + seat.price, 0)
-                .toFixed(2)}{" "}
-              $
-            </button>
+            <div className="flex flex-col gap-[10px] mt-[10px]">
+              <div
+                className="cursor-pointer w-[200px] h-[40px] bg-[#0f0f0f] rounded-xl flex justify-center items-center"
+                onClick={() => dispatch(clearCart())}
+              >
+                Clear card
+              </div>
+              <button
+                onClick={() => {
+                  setModalVisibility(true);
+                }}
+                className="w-[200px] h-[40px] rounded-xl bg-[#8D090D]"
+              >
+                Purchaes: {purchaes}$
+              </button>
+            </div>
             <span className="text-gray-600 text-[15px]">
               Time left to purchase: {time}
             </span>
           </div>
         </div>
       </div>
-      <div className=" flex flex-col gap-[20px] justify-center items-center w-[50%]">
+      <div className="max-xs:mt-[150px] flex max-xl:ml-[150px] max-xl:w-[40%] flex-col gap-[20px] justify-center items-center w-[50%]">
         <div className="flex flex-col justify-center items-center gap-[20px]">
           <h2>Date</h2>
           <div className="flex gap-[10px]">
@@ -200,6 +236,11 @@ const MovieCard = ({
           </div>
         </div>
       </div>
+      <OrderModelWindow
+        modalVisibility={modalVisibility}
+        purchaes={Number(purchaes)}
+        setModalVisibility={setModalVisibility}
+      />
     </div>
   );
 };

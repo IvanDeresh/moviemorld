@@ -70,12 +70,11 @@ const ComingSoon = React.memo(() => {
             <ArrowForwardIosIcon />
           </button>
         </div>
-        <Slider className="ml-[50px]" ref={sliderRef} {...settings}>
+        <Slider ref={sliderRef} {...settings}>
           {movies &&
             movies.results.map((movie) => (
-              <Link href="/" key={movie.id} className={`relative`}>
+              <Link href="/" key={movie.id} className="relative">
                 <div
-                  className="relative"
                   onMouseEnter={() =>
                     setHoveredMovies((prevHoveredMovies) => ({
                       ...prevHoveredMovies,
@@ -88,6 +87,7 @@ const ComingSoon = React.memo(() => {
                       [movie.id]: false,
                     }))
                   }
+                  style={{ display: "flex", justifyContent: "center" }}
                 >
                   <Image
                     src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
@@ -111,7 +111,7 @@ const ComingSoon = React.memo(() => {
                   {hoveredMovies[movie.id] && (
                     <Link
                       href={`/pages/cinema/order/${movie.id}`}
-                      className="absolute top-0 left-[-1px] w-[73%] h-full flex justify-center items-center bg-black bg-opacity-50"
+                      className="absolute top-0  max-xl:w-[100%] max-xl:left-0 w-[70%]  left-[42px] h-full flex justify-center items-center bg-black bg-opacity-50"
                     >
                       <OrderButton />
                     </Link>
