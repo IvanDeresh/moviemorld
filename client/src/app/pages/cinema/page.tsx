@@ -1,8 +1,8 @@
 "use client";
-import { fetchMovies } from "@/func";
+import { useMovies } from "@/func";
 import React from "react";
 const page = ({ id }: { id: number }) => {
-  const movies = fetchMovies();
+  const movies = useMovies(1);
   return (
     <div className="h-screen custom-shadow-top-bottom">
       <div></div>

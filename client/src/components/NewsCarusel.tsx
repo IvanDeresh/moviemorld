@@ -1,8 +1,8 @@
 import React from "react";
-import { fetchNewsData } from "@/func/index";
+import { useNewsData } from "@/func/index";
 
 const NewsCarusel = ({ id }: { id: number }) => {
-  const news = fetchNewsData();
+  const news = useNewsData();
 
   return (
     <div>
