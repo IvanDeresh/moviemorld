@@ -1,5 +1,5 @@
 "use client";
-import { fetchMovies } from "@/func";
+import { useMovies } from "@/func";
 import React, { useState, useRef } from "react";
 import Image from "next/image";
 import Slider from "react-slick";
@@ -13,7 +13,7 @@ import HeroComponent from "./HeroComponent";
 const Hero = React.memo(() => {
   const [id, setId] = useState(969492);
   const sliderRef = useRef<Slider>(null);
-  const movies = fetchMovies();
+  const movies = useMovies(1);
   const settings = {
     dots: false,
     infinite: true,
@@ -67,7 +67,10 @@ const Hero = React.memo(() => {
         <Slider className="p-[40px]" ref={sliderRef} {...settings}>
           {movies &&
             movies.results.map((movie) => (
-              <div style={{ display: "flex", justifyContent: "center" }}>
+              <div
+                key={movie.id}
+                style={{ display: "flex", justifyContent: "center" }}
+              >
                 <Image
                   src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
                   alt={movie.title}
@@ -83,5 +86,5 @@ const Hero = React.memo(() => {
     </div>
   );
 });
-
+Hero.displayName = "Hero";
 export default Hero;

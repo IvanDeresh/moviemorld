@@ -1,6 +1,6 @@
 "use client";
 import { cinema } from "@/assets/img";
-import { fetchMovies, fetchSecondMovies } from "@/func";
+import { useMovies } from "@/func";
 import { CurrentPlaying, CurrentPlayingMovie } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,8 +20,7 @@ const TheHeader = () => {
     }
   };
   const [query, setQuery] = useState("");
-  const movies1 = fetchMovies();
-  const movies2 = fetchSecondMovies();
+  const movies1 = useMovies(1);
   function capitalizeFirstLetter(string: any) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
@@ -37,10 +36,6 @@ const TheHeader = () => {
   const filteredItems = getFilteredItems(
     formatMovieTitle(query),
     movies1?.results
-  );
-  const filteredItems2 = getFilteredItems(
-    formatMovieTitle(query),
-    movies2?.results
   );
   const [isSearched, setIsSearched] = useState(false);
   return (
@@ -81,25 +76,6 @@ const TheHeader = () => {
                 </div>
               </Link>
             ))}
-          {Array.isArray(filteredItems2) &&
-            filteredItems2.length > 0 &&
-            filteredItems2.map((movie: any) => (
-              <Link
-                href={`/pages/cinema/order/${movie.id}`}
-                className="h-[60px] w-full flex justify-between items-center"
-                key={movie.id}
-              >
-                <Image
-                  src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-                  alt={movie.title}
-                  width={40}
-                  height={40}
-                />
-                <div className="hover:text-[#65f5e6] transition-colors duration-500">
-                  {movie.title}
-                </div>
-              </Link>
-            ))}
         </div>
       )}
 
@@ -121,12 +97,6 @@ const TheHeader = () => {
           href="/pages/cinema"
         >
           Order
-        </Link>
-        <Link
-          className="hover:text-[#65f5e6] transition-colors duration-500"
-          href="/pages/contact"
-        >
-          Info
         </Link>
       </ul>
       <button className="hover:text-[white] text-[#65f5e6] hover:bg-[#65f5e6] transition-colors duration-500 bg-gray-100 w-[150px] h-[40px] rounded-xl">

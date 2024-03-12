@@ -1,13 +1,17 @@
 "use client";
-import { fetchMovies } from "@/func";
+import { useMovies } from "@/func";
 import React from "react";
 
-const HeroComponent = React.memo(({ id }: { id: number }) => {
-  const movies = fetchMovies();
+const HeroComponent = React.memo(function HeroComponent({
+  id,
+}: {
+  id: number;
+}) {
+  const movies = useMovies();
   return (
     <div className="">
       {movies?.results.map((item) => (
-        <div>
+        <div key={item.id}>
           {id === item.id && (
             <div
               style={{

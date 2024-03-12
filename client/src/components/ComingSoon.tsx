@@ -9,11 +9,11 @@ import Link from "next/link";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import OrderButton from "./OrderButton";
-import { fetchMovies } from "@/func";
+import { useMovies } from "@/func";
 type MovieMap = { [key: number]: boolean };
 
 const ComingSoon = React.memo(() => {
-  const movies = fetchMovies();
+  const movies = useMovies(1);
   const [hoveredMovies, setHoveredMovies] = useState<MovieMap>({});
   const sliderRef = useRef<Slider>(null);
 
@@ -105,7 +105,7 @@ const ComingSoon = React.memo(() => {
                       </p>
                     </div>
                     <p className="text-[12px]">
-                      {movie.vote_average.toFixed(1)} : IMD'b
+                      {movie.vote_average.toFixed(1)} : IMD&apos;b
                     </p>
                   </div>
                   {hoveredMovies[movie.id] && (
@@ -124,5 +124,5 @@ const ComingSoon = React.memo(() => {
     </div>
   );
 });
-
+ComingSoon.displayName = "Coming Soon";
 export default ComingSoon;

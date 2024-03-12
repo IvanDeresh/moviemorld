@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { fetchSecondMovies } from "@/func";
+import { useMovies } from "@/func";
 import Link from "next/link";
 import OrderButton from "@/components/OrderButton";
 const CurrentlyPlayingMap = () => {
-  const movies = fetchSecondMovies();
+  const movies = useMovies(2);
   type MovieMap = { [key: number]: boolean };
   const [hoveredMovies, setHoveredMovies] = useState<MovieMap>({});
   return (
@@ -44,7 +44,7 @@ const CurrentlyPlayingMap = () => {
                   </p>
                 </div>
                 <p className="text-[12px]">
-                  {movie.vote_average.toFixed(1)} : IMD'b
+                  {movie.vote_average.toFixed(1)} : IMD&apos;b
                 </p>
               </div>
               {hoveredMovies[movie.id] && (

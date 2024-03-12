@@ -1,11 +1,11 @@
 "use client";
-import { fetchMovies } from "@/func";
+import { useMovies } from "@/func";
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import OrderButton from "@/components/OrderButton";
 const ComingSoonMap = () => {
-  const movies = fetchMovies();
+  const movies = useMovies(1);
   const [hoveredMovies, setHoveredMovies] = useState<MovieMap>({});
   type MovieMap = { [key: number]: boolean };
   return (
@@ -44,7 +44,7 @@ const ComingSoonMap = () => {
                   </p>
                 </div>
                 <p className="text-[12px]">
-                  {movie.vote_average.toFixed(1)} : IMD'b
+                  {movie.vote_average.toFixed(1)} : IMD&apos;b
                 </p>
               </div>
               {hoveredMovies[movie.id] && (

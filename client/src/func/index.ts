@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { News as NewsType, CurrentPlaying } from "@/types";
-export const fetchNewsData = () => {
+export const useNewsData = () => {
   const [news, setNews] = useState<NewsType[]>([]);
 
   useEffect(() => {
@@ -17,10 +17,11 @@ export const fetchNewsData = () => {
     };
     fetchNews();
   }, []);
+
   return news;
 };
 
-export const fetchMovies = () => {
+export const useMovies = (page: number) => {
   const [movies, setMovies] = useState<CurrentPlaying | null>(null);
 
   useEffect(() => {
@@ -29,7 +30,7 @@ export const fetchMovies = () => {
         const response = await axios.get(
           "https://api.themoviedb.org/3/movie/now_playing",
           {
-            params: { language: "en-US", page: "1" },
+            params: { language: "en-US", page: page.toString() },
             headers: {
               accept: "application/json",
               Authorization:
@@ -44,33 +45,7 @@ export const fetchMovies = () => {
     };
 
     fetchMovies();
-  }, []);
-  return movies;
-};
+  }, [page]);
 
-export const fetchSecondMovies = () => {
-  const [movies, setMovies] = useState<CurrentPlaying | null>(null);
-  useEffect(() => {
-    const fetchMovies = async () => {
-      try {
-        const response = await axios.get(
-          "https://api.themoviedb.org/3/movie/now_playing",
-          {
-            params: { language: "en-US", page: "2" },
-            headers: {
-              accept: "application/json",
-              Authorization:
-                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMTJiMmJjZDNhYTIyZDZiZThhN2Y3ZGM5ZDhlN2IxYSIsInN1YiI6IjY1ZDA4NzQ5ZTYyNzE5MDE4MTcxM2RhOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.8KnRoxBXrT9goCrF0kZ6F6eR9klZTM2PzaLXvhw4D5Q",
-            },
-          }
-        );
-        setMovies(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchMovies();
-  }, []);
   return movies;
 };

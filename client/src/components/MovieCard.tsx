@@ -94,7 +94,7 @@ const MovieCard = ({
             }`}
           >
             {seatetes.map((item) => (
-              <div className="flex justify-around">
+              <div key={item.id} className="flex justify-around">
                 <div className="w-[15px] h-[15px] opacity-50 bg-gray-700 rounded-full"></div>
                 <div>seat : {item.number_seats}</div>
                 <div>price: {item.price.toFixed(2)}</div>
