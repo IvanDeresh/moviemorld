@@ -2,11 +2,12 @@
 import { cinema } from "@/assets/img";
 import { fetchMovies, fetchSecondMovies } from "@/func";
 import { CurrentPlaying, CurrentPlayingMovie } from "@/types";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 
-const TheHeader = () => {
+const TheHeader = React.memo(() => {
   const getFilteredItems = (query: string, items: any) => {
     if (!query) {
       return items;
@@ -43,6 +44,7 @@ const TheHeader = () => {
     movies2?.results
   );
   const [isSearched, setIsSearched] = useState(false);
+  const session = useSession();
   return (
     <header className="flex  max-sm:flex  max-sm:justify-around z-50 max-sm:w-[100%] text-white absolute top-[20px] justify-around items-center w-[70%]">
       <Link href="/">
@@ -54,7 +56,7 @@ const TheHeader = () => {
         }}
         onClick={() => setIsSearched(true)}
         placeholder="Serch"
-        className="h-[35px] outline-none max-sm:w-[150px] text-gray-400 w-[300px] bg-gray-100 p-[10px] rounded-2xl"
+        className="h-[35px] outline-none max-sm:w-[150px] text-gray-400 w-[300px] bg-gray-100 p-[10px] rounded-md"
       />
 
       {isSearched && (
@@ -112,28 +114,29 @@ const TheHeader = () => {
         </Link>
         <Link
           className="hover:text-[#65f5e6] transition-colors duration-500"
-          href="/"
+          href="/pages/profile"
         >
-          Online
+          Profile
         </Link>
         <Link
           className="hover:text-[#65f5e6] transition-colors duration-500"
-          href="/pages/cinema"
+          href="/pages/recomended"
         >
-          Order
-        </Link>
-        <Link
-          className="hover:text-[#65f5e6] transition-colors duration-500"
-          href="/pages/contact"
-        >
-          Info
+          Recomended
         </Link>
       </ul>
-      <button className="hover:text-[white] text-[#65f5e6] hover:bg-[#65f5e6] transition-colors duration-500 bg-gray-100 w-[150px] h-[40px] rounded-xl">
-        Sign in
-      </button>
+      {session.data?.user ? (
+        <div></div>
+      ) : (
+        <Link
+          href="/pages/sign-in"
+          className="hover:text-[white] flex justify-center items-center text-[#65f5e6] hover:bg-[#65f5e6] transition-colors duration-500 bg-gray-100 w-[150px] h-[40px] rounded-xl"
+        >
+          Sign in
+        </Link>
+      )}
     </header>
   );
-};
+});
 
 export default TheHeader;

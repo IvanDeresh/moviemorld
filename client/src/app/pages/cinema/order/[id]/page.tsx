@@ -3,6 +3,7 @@ import React from "react";
 import { fetchMovies, fetchNewsData, fetchSecondMovies } from "@/func";
 import type { Props } from "@/types";
 import MovieCard from "@/components/MovieCard";
+import OrderModelWindow from "@/components/OrderModelWindow";
 
 const MovieDisplay = ({ params: { id } }: Props) => {
   const movies = fetchMovies();
@@ -13,7 +14,7 @@ const MovieDisplay = ({ params: { id } }: Props) => {
     <div className="h-auto z-50 bg-[#121212] text-black shadow-2xl">
       <div className="">
         {filteredMovies?.map((movies) => (
-          <div>
+          <div key={movies.id}>
             <MovieCard
               title={movies.title}
               backdrop_path={movies.backdrop_path}
@@ -25,7 +26,7 @@ const MovieDisplay = ({ params: { id } }: Props) => {
         {filteredMovies?.length == 0 && (
           <div>
             {filteredMovies2?.map((movies) => (
-              <div>
+              <div key={movies.id}>
                 <MovieCard
                   title={movies.title}
                   backdrop_path={movies.backdrop_path}

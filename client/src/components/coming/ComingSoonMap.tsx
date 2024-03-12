@@ -1,32 +1,32 @@
 "use client";
+import { fetchMovies } from "@/func";
 import React, { useState } from "react";
 import Image from "next/image";
-import { fetchSecondMovies } from "@/func";
 import Link from "next/link";
 import OrderButton from "@/components/OrderButton";
-const CurrentlyPlayingMap = () => {
-  const movies = fetchSecondMovies();
-  type MovieMap = { [key: number]: boolean };
+const ComingSoonMap = React.memo(() => {
+  const movies = fetchMovies();
   const [hoveredMovies, setHoveredMovies] = useState<MovieMap>({});
+  type MovieMap = { [key: number]: boolean };
   return (
-    <div className="flex flex-wrap gap-[30px]  max-sm:ml-[30px] mt-[100px]">
+    <div className="flex flex-wrap gap-[30px]">
       {movies &&
         movies.results.map((movie) => (
-          <Link href="/" key={movie.id} className="relative">
+          <Link href="/" key={movie.id} className={`relative`}>
             <div
+              className="relative"
               onMouseEnter={() =>
-                setHoveredMovies((prevHoveredMovies: any) => ({
+                setHoveredMovies((prevHoveredMovies) => ({
                   ...prevHoveredMovies,
                   [movie.id]: true,
                 }))
               }
               onMouseLeave={() =>
-                setHoveredMovies((prevHoveredMovies: any) => ({
+                setHoveredMovies((prevHoveredMovies) => ({
                   ...prevHoveredMovies,
                   [movie.id]: false,
                 }))
               }
-              style={{ display: "flex", justifyContent: "center" }}
             >
               <Image
                 src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
@@ -50,7 +50,7 @@ const CurrentlyPlayingMap = () => {
               {hoveredMovies[movie.id] && (
                 <Link
                   href={`/pages/cinema/order/${movie.id}`}
-                  className="absolute top-0 left-0  w-[100%] h-full flex justify-center items-center bg-black bg-opacity-50"
+                  className="absolute top-0 left-0 w-[100%] h-full flex justify-center items-center bg-black bg-opacity-50"
                 >
                   <OrderButton />
                 </Link>
@@ -60,6 +60,6 @@ const CurrentlyPlayingMap = () => {
         ))}
     </div>
   );
-};
+});
 
-export default CurrentlyPlayingMap;
+export default ComingSoonMap;

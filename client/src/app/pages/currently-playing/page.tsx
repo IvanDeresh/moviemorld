@@ -1,5 +1,5 @@
 "use client";
-import CurrentlyPlayingMap from "@/components/CurrentlyPlayingMap";
+import CurrentlyPlayingMap from "@/components/currently/CurrentlyPlayingMap";
 import React from "react";
 
 const page = () => {

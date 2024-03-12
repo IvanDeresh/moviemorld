@@ -1,6 +1,6 @@
 "use client";
 interface Seat {
-  _id: object;
+  id: object;
   time: number;
   date: number;
   title: string;
@@ -45,7 +45,7 @@ const seatReducer = (
     case "REMOVE_SEAT":
       return {
         ...state,
-        product: state.product.filter((p) => p._id !== action.payload?._id),
+        product: state.product.filter((p) => p.id !== action.payload?._id),
       };
     default:
       return state;

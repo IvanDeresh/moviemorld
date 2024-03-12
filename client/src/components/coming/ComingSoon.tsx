@@ -8,7 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import OrderButton from "./OrderButton";
+import OrderButton from "../OrderButton";
 import { fetchMovies } from "@/func";
 type MovieMap = { [key: number]: boolean };
 
