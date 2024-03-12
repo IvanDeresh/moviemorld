@@ -7,7 +7,7 @@ const HeroComponent = React.memo(function HeroComponent({
 }: {
   id: number;
 }) {
-  const movies = useMovies();
+  const movies = useMovies(1);
   return (
     <div className="">
       {movies?.results.map((item) => (
