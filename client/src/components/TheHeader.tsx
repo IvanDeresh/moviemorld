@@ -39,7 +39,7 @@ const TheHeader = () => {
   );
   const [isSearched, setIsSearched] = useState(false);
   return (
-    <header className="flex  max-sm:flex  max-sm:justify-around z-50 max-sm:w-[100%] text-white absolute top-[20px] justify-around items-center w-[70%]">
+    <header className="flex max-2xl:left-[15%] max-sm:left-[0] max-sm:flex  max-sm:justify-around z-50 max-sm:w-[100%] text-white absolute top-[20px] justify-around items-center w-[70%]">
       <Link href="/">
         <Image src={cinema} width={40} alt="logo" />
       </Link>
