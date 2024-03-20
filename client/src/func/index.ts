@@ -1,20 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { News as NewsType, CurrentPlaying, User } from "@/types";
-export const FetchUsers = async () => {
-  const [users, setUsers] = useState<User[]>([]);
 
-  try {
-    const response = await axios.get<User[]>(
-      "http://localhost:3003/users/findAll"
-    );
-    setUsers(response.data);
-  } catch (error) {
-    console.error("Error fetching users:", error);
-  }
-
-  return users;
-};
 export const fetchNewsData = () => {
   const [news, setNews] = useState<NewsType[]>([]);
 

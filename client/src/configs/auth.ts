@@ -2,13 +2,14 @@ import type { AuthOptions, User } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import axios from "axios";
+import dotenv from "dotenv";
 
+dotenv.config();
 export const authConfig: AuthOptions = {
   providers: [
     GoogleProvider({
-      clientId:
-        "255567571899-iblhh893spf9shrk6hcfsg5qfo3dkbsv.apps.googleusercontent.com",
-      clientSecret: "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",
+      clientId: process.env.CLIENT_ID!,
+      clientSecret: process.env.CLIENT_SECRET!,
     }),
     Credentials({
       credentials: {
@@ -36,11 +37,7 @@ export const authConfig: AuthOptions = {
         );
 
         if (currentUser) {
-          // Перевірка пароля тут
-          // Наприклад, порівнюємо хеші паролів
-          // Якщо пароль вірний, повертаємо користувача
-          // Якщо пароль невірний, повертаємо null
-          return currentUser; // Це приклад. Перевірку пароля потрібно реалізувати самостійно
+          return currentUser;
         }
 
         return null;
