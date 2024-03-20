@@ -34,7 +34,7 @@ const ComingSoonMap = React.memo(() => {
                 width={200}
                 height={300}
               />
-              <div className="absolute overflow-x-hidden w-[200px] top-[180px] text-white text-bold p-[20px]">
+              <div className="absolute overflow-hidden w-[200px] top-[180px] text-white text-bold p-[20px]">
                 <h1 className="text-[13px]">{movie.title}</h1>
                 <p className="text-[12px]">{movie.release_date}</p>
                 <div className="relative">

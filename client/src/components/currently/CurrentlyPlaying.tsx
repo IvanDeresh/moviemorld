@@ -112,7 +112,7 @@ const CurrentlyPlaying = React.memo(() => {
                   {hoveredMovies[movie.id] && (
                     <Link
                       href={`/pages/cinema/order/${movie.id}`}
-                      className="absolute top-0 max-xl:w-[100%] max-xl:left-0 w-[70%] left-[42px] h-full flex justify-center items-center bg-black bg-opacity-50"
+                      className="absolute w-[200px] h-[300px]  flex justify-center items-center bg-black bg-opacity-50"
                     >
                       <OrderButton />
                     </Link>

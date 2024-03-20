@@ -78,7 +78,7 @@ const TheHeader = React.memo(() => {
                   width={40}
                   height={40}
                 />
-                <div className="hover:text-[#65f5e6] transition-colors duration-500">
+                <div className="hover:text-[#8D090D] transition-colors duration-500">
                   {movie.title}
                 </div>
               </Link>
@@ -97,7 +97,7 @@ const TheHeader = React.memo(() => {
                   width={40}
                   height={40}
                 />
-                <div className="hover:text-[#65f5e6] transition-colors duration-500">
+                <div className="hover:text-[#8D090D] transition-colors duration-500">
                   {movie.title}
                 </div>
               </Link>
@@ -107,19 +107,19 @@ const TheHeader = React.memo(() => {
 
       <ul className=" w-[30%] max-xl:hidden  flex justify-between">
         <Link
-          className="hover:text-[#65f5e6] transition-colors duration-500"
+          className="hover:text-[#8D090D] transition-colors duration-500"
           href="/"
         >
           Home
         </Link>
         <Link
-          className="hover:text-[#65f5e6] transition-colors duration-500"
+          className="hover:text-[#8D090D] transition-colors duration-500"
           href="/pages/profile"
         >
           Profile
         </Link>
         <Link
-          className="hover:text-[#65f5e6] transition-colors duration-500"
+          className="hover:text-[#8D090D] transition-colors duration-500"
           href="/pages/recomended"
         >
           Recomended
@@ -130,7 +130,7 @@ const TheHeader = React.memo(() => {
       ) : (
         <Link
           href="/pages/sign-in"
-          className="hover:text-[white] flex justify-center items-center text-[#65f5e6] hover:bg-[#65f5e6] transition-colors duration-500 bg-gray-100 w-[150px] h-[40px] rounded-xl"
+          className="hover:text-[white] flex justify-center items-center text-[#8D090D] hover:bg-[#8D090D] transition-colors duration-500 bg-gray-100 w-[150px] h-[40px] rounded-xl"
         >
           Sign in
         </Link>

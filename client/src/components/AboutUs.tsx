@@ -4,9 +4,9 @@ import Image from "next/image";
 
 const AboutUs = () => {
   return (
-    <div className="custom-shadow-top-bottom max-md:mx-[20px] max-sm:h-[300px] flex font-montserrat">
+    <div className="custom-shadow-top-bottom max-md:mx-[20px] h-[250px] flex justify-between font-montserrat">
       <form className="w-full flex">
-        <div className="w-[58%] p-[50px] gap-[10px] flex flex-col">
+        <div className="w-[100%] p-[50px] gap-[10px] flex flex-col">
           <h1 className="text-[20px]">About us </h1>
           <h2 className="text-[14px]">2008-2018</h2>
           <p className="text-[13px]">
@@ -21,12 +21,13 @@ const AboutUs = () => {
           </p>
         </div>
       </form>
-      <div className="w-[42%]">
+      <div className="w-[80%] flex justify-end">
         <Image
           src={cinema_real}
-          className="bg-cover bg-center overflow-hidden"
+          className="bg-cover w-[400px] h-[250px] bg-center overflow-hidden"
           alt="dadas"
           width={500}
+          height={300}
         />
       </div>
     </div>

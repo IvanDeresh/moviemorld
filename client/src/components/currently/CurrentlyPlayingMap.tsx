@@ -9,7 +9,7 @@ const CurrentlyPlayingMap = React.memo(() => {
   type MovieMap = { [key: number]: boolean };
   const [hoveredMovies, setHoveredMovies] = useState<MovieMap>({});
   return (
-    <div className="flex flex-wrap gap-[30px]  max-sm:ml-[30px] mt-[100px]">
+    <div className="flex flex-wrap gap-[30px]">
       {movies &&
         movies.results.map((movie) => (
           <Link href="/" key={movie.id} className="relative">
@@ -50,7 +50,7 @@ const CurrentlyPlayingMap = React.memo(() => {
               {hoveredMovies[movie.id] && (
                 <Link
                   href={`/pages/cinema/order/${movie.id}`}
-                  className="absolute top-0 left-0  w-[100%] h-full flex justify-center items-center bg-black bg-opacity-50"
+                  className="absolute top-0 left-0 w-[100%] h-full flex justify-center items-center bg-black bg-opacity-50"
                 >
                   <OrderButton />
                 </Link>
