@@ -14,7 +14,10 @@ export type Movies = {
   vote_average: number;
   vote_count: number;
 };
-
+export type User = {
+  email: string;
+  password: string;
+};
 export type resultForMovies = {
   page: number;
   results: Movies[];

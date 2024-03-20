@@ -11,14 +11,14 @@ const NewsComponent = () => {
     <div className="text-gray-500 font-montserrat  my-[100px]">
       <h1 className="text-[20px] text-black">Latest News</h1>
       <div className="h-[2px] bg-gray-300 mb-[40px]"></div>
-      <div className="gap-[100px] flex max-xl:flex max-xl:flex-col">
+      <div className="gap-[100px] flex  max-xl:flex max-xl:flex-col">
         <div className="w-[50%]">
           <NewsCarusel id={id} />
         </div>
-        <div className="w-[50%] ml-[100px] flex flex-col justify-between gap-[20px]">
+        <div className="w-[50%] mt-[20px] ml-[100px] flex flex-col justify-between gap-[20px]">
           {news.map((item) => (
             <div key={item.id}>
-              {item.id <= 5 && (
+              {item.id <= 6 && (
                 <div
                   onClick={() => setId(item.id)}
                   className="flex gap-[50px] cursor-pointer items-center"

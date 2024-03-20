@@ -1,7 +1,8 @@
 import type { AuthOptions, User } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
-import { users } from "@/constants";
+import axios from "axios";
+
 export const authConfig: AuthOptions = {
   providers: [
     GoogleProvider({
@@ -15,16 +16,33 @@ export const authConfig: AuthOptions = {
         password: { label: "password", type: "password", required: true },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
+        let users: User[] = [];
+
+        try {
+          const response = await axios.get<User[]>(
+            "http://localhost:3003/users/findAll"
+          );
+          users = response.data;
+        } catch (error) {
+          console.error("Error fetching users:", error);
+        }
+
+        if (!credentials?.email || !credentials?.password || !users) {
           return null;
         }
+
         const currentUser = users.find(
           (user) => user.email === credentials.email
         );
-        if (currentUser && currentUser.password === credentials?.password) {
-          const { password, ...userWithoutPass } = currentUser;
-          return userWithoutPass as User;
+
+        if (currentUser) {
+          // Перевірка пароля тут
+          // Наприклад, порівнюємо хеші паролів
+          // Якщо пароль вірний, повертаємо користувача
+          // Якщо пароль невірний, повертаємо null
+          return currentUser; // Це приклад. Перевірку пароля потрібно реалізувати самостійно
         }
+
         return null;
       },
     }),

@@ -8,6 +8,10 @@ const nextConfig = {
       "lh3.googleusercontent.com",
       "m.media-amazon.com",
       "ohkino.pl",
+      "parade.com",
+      "resizing.flixster.com",
+      "variety.com",
+      "encrypted-tbn0.gstatic.com",
     ],
   },
 };

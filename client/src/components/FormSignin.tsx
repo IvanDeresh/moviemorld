@@ -1,24 +1,39 @@
-"use client";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation"; // Use next/router instead of next/navigation
 import { signIn } from "next-auth/react";
-import { FormEventHandler } from "react";
+import { FormEventHandler, useState } from "react"; // Remove useEffect import
+import axios from "axios";
 
 const FormSignin = () => {
   const router = useRouter();
+  const [click, setClick] = useState(false);
+
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    console.log(formData.get("email"));
-    console.log(formData.get("password"));
-    const res = await signIn("credentials", {
-      email: formData.get("email"),
-      password: formData.get("password"),
-      redirect: false,
-    });
-    if (res && !res.error) {
-      router.push("/pages/profile");
-    } else {
-      alert("Incorrect data");
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3003/users/addNewUser",
+        {
+          email: formData.get("email"),
+          password: formData.get("password"),
+        }
+      );
+      console.log(response.data);
+
+      const res = await signIn("credentials", {
+        email: formData.get("email"),
+        password: formData.get("password"),
+        redirect: false,
+      });
+
+      if (res && !res.error) {
+        router.push("/pages/profile");
+      } else {
+        alert("Incorrect data");
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
   };
 
@@ -45,12 +60,14 @@ const FormSignin = () => {
         />
       </div>
       <button
-        className="bg-green-500 w-[200px] h-[50px] rounded-xl "
+        className="bg-[#8D090D] w-[200px] h-[50px] rounded-xl "
         type="submit"
+        onClick={() => setClick(!click)}
       >
         Sign in
       </button>
     </form>
   );
 };
+
 export default FormSignin;
