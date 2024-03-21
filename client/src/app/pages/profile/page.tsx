@@ -1,29 +1,34 @@
 "use client";
-import React from "react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation"; // Changed from "next/navigation" to "next/router"
 import { signOut, useSession } from "next-auth/react";
-import CurrentlyPlayingMap from "@/components/currently/CurrentlyPlayingMap";
-import Link from "next/link";
-import { fetchMovies } from "@/func";
-const page = () => {
+import { useMovies } from "@/func";
+import Image from "next/image";
+import React, { useEffect } from "react"; // Import React and useEffect
+
+const Page = () => {
+  // Changed from 'page' to 'Page'
   const router = useRouter();
-  const session = useSession();
-  const movies = fetchMovies();
-  if (!session.data?.user) {
-    router.replace("/pages/sign-in");
-  }
+  const { data: session } = useSession(); // Destructure data from session
+  const movies = useMovies(1);
+
+  useEffect(() => {
+    // Added useEffect to handle redirect
+    if (!session?.user) {
+      router.replace("/pages/sign-in");
+    }
+  }, [session, router]);
+
   return (
     <div className="h-screen  flex flex-col justify-center text-white bg-[#121212] items-center">
       <div>
-        {session.data?.user ? (
+        {session?.user ? (
           <div className="border py-[50px] rounded-md flex-col w-[400px] overflow-hidden h-[450px] flex gap-[20px] justify-center  items-center">
             <div className="flex flex-col gap-[20px]">
               <div className="w-[300px]  h-[50px] border-2 flex justify-around items-center rounded-md">
-                {session.data?.user?.email}
+                {session.user.email}
               </div>
             </div>
-            <h1 className="text-">Recomended for you</h1>
+            <h1 className="text-">Recommended for you</h1>
             <div className="gap-[10px] overflow-x-hidden h-[250px]  flex">
               {movies?.results.map((movie) => (
                 <div key={movie.id} className="w-[100px] h-[145px] border-2">
@@ -37,7 +42,7 @@ const page = () => {
               ))}
             </div>
             <button
-              className="w-[150px]  duration-300 hover:bg-[#292929] h-[50px] rounded-md border-2"
+              className="w-[150px]  hover:text-[#fff] text-[#8d090d] transition-colors duration-500 hover:bg-[#8D090D] h-[50px] bg-[#0e0d0d] rounded-md"
               onClick={() => signOut({ callbackUrl: "/" })}
             >
               Log out
@@ -56,4 +61,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page; // Changed from 'page' to 'Page'

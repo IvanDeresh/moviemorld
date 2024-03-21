@@ -10,7 +10,7 @@ const TheFooter = () => {
         <div className="leading-7">
           <h2 className="font-bold text-[15px] max-md:text-[12px]">PROFILE</h2>
           <div className="text-[12px] max-md:text-[10px] cursor-pointer">
-            FAQ's
+            FAQs
           </div>
           <div className="text-[12px] max-md:text-[10px] cursor-pointer">
             Procong plans
@@ -30,7 +30,7 @@ const TheFooter = () => {
             Touch of uniquness
           </div>
           <div className="text-[12px] max-md:text-[10px] cursor-pointer">
-            Offices you won't forget
+            Offices you wont forget
           </div>
           <div className="text-[12px] cursor-pointer">Cicilan</div>
         </div>

@@ -9,11 +9,11 @@ import Link from "next/link";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import OrderButton from "../OrderButton";
-import { fetchSecondMovies } from "@/func";
+import { useMovies } from "@/func";
 
 const CurrentlyPlaying = React.memo(() => {
   const sliderRef = useRef<Slider>(null);
-  const movies = fetchSecondMovies();
+  const movies = useMovies(2);
 
   const settings = {
     dots: false,
@@ -106,7 +106,7 @@ const CurrentlyPlaying = React.memo(() => {
                       </p>
                     </div>
                     <p className="text-[12px]">
-                      {movie.vote_average.toFixed(1)} : IMD'b
+                      {movie.vote_average.toFixed(1)} : IMDb
                     </p>
                   </div>
                   {hoveredMovies[movie.id] && (
@@ -125,5 +125,7 @@ const CurrentlyPlaying = React.memo(() => {
     </div>
   );
 });
+
+CurrentlyPlaying.displayName = "Currently Playing";
 
 export default CurrentlyPlaying;

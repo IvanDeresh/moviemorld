@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { fetchSecondMovies } from "@/func";
+import { useMovies } from "@/func";
 import Link from "next/link";
 import OrderButton from "@/components/OrderButton";
 const CurrentlyPlayingMap = React.memo(() => {
-  const movies = fetchSecondMovies();
+  const movies = useMovies(2);
   type MovieMap = { [key: number]: boolean };
   const [hoveredMovies, setHoveredMovies] = useState<MovieMap>({});
   return (
@@ -44,7 +44,7 @@ const CurrentlyPlayingMap = React.memo(() => {
                   </p>
                 </div>
                 <p className="text-[12px]">
-                  {movie.vote_average.toFixed(1)} : IMD'b
+                  {movie.vote_average.toFixed(1)} : IMDb
                 </p>
               </div>
               {hoveredMovies[movie.id] && (
@@ -61,5 +61,5 @@ const CurrentlyPlayingMap = React.memo(() => {
     </div>
   );
 });
-
+CurrentlyPlayingMap.displayName = "Currently Playing Map";
 export default CurrentlyPlayingMap;

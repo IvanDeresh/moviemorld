@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
-import { fetchMovies, fetchNewsData, fetchSecondMovies } from "@/func";
+import { useMovies } from "@/func";
 import type { Props } from "@/types";
 import MovieCard from "@/components/MovieCard";
 import OrderModelWindow from "@/components/OrderModelWindow";
 
 const MovieDisplay = ({ params: { id } }: Props) => {
-  const movies = fetchMovies();
-  const movies2 = fetchSecondMovies();
+  const movies = useMovies(1);
+  const movies2 = useMovies(2);
   const filteredMovies = movies?.results.filter((m) => m.id === Number(id));
   const filteredMovies2 = movies2?.results.filter((m) => m.id === Number(id));
   return (

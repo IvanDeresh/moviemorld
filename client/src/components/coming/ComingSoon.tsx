@@ -1,5 +1,4 @@
-"use client";
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef } from "react";
 import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
 import Image from "next/image";
 import Slider from "react-slick";
@@ -9,11 +8,12 @@ import Link from "next/link";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import OrderButton from "../OrderButton";
-import { fetchMovies } from "@/func";
+import { useMovies } from "@/func";
+
 type MovieMap = { [key: number]: boolean };
 
 const ComingSoon = React.memo(() => {
-  const movies = fetchMovies();
+  const movies = useMovies(1);
   const [hoveredMovies, setHoveredMovies] = useState<MovieMap>({});
   const sliderRef = useRef<Slider>(null);
 
@@ -47,7 +47,7 @@ const ComingSoon = React.memo(() => {
   };
 
   return (
-    <div className="my-[100px] relative ">
+    <div className="my-[100px] relative">
       <h2 className="text-[20px] font-bold my-[50px] flex justify-between mx-[50px]">
         Coming Soon
         <Link href="/pages/coming-soon" className="text-[14px]">
@@ -55,7 +55,7 @@ const ComingSoon = React.memo(() => {
         </Link>
       </h2>
 
-      <div className="carousel-wrapper  ">
+      <div className="carousel-wrapper">
         <div className="w-full flex justify-between gap-[50px] absolute top-[200px]">
           <button
             onClick={goToPrev}
@@ -105,7 +105,7 @@ const ComingSoon = React.memo(() => {
                       </p>
                     </div>
                     <p className="text-[12px]">
-                      {movie.vote_average.toFixed(1)} : IMD'b
+                      {movie.vote_average.toFixed(1)} : IMDb
                     </p>
                   </div>
                   {hoveredMovies[movie.id] && (
@@ -124,5 +124,7 @@ const ComingSoon = React.memo(() => {
     </div>
   );
 });
+
+ComingSoon.displayName = "ComingSoon"; // Display name added
 
 export default ComingSoon;

@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import { fetchNewsData } from "@/func/index";
+import { useNewsData } from "@/func/index";
 import NewsCarusel from "./NewsCarusel";
 
 const NewsComponent = () => {
   const [id, setId] = useState(4);
-  const news = fetchNewsData();
+  const news = useNewsData();
 
   return (
     <div className="text-gray-500 font-montserrat  my-[100px]">
       <h1 className="text-[20px] text-black">Latest News</h1>
       <div className="h-[2px] bg-gray-300 mb-[40px]"></div>
-      <div className="gap-[100px] flex items-center max-md:flex max-md:flex-col">
+      <div className="gap-[100px] flex items-center max-md:flex max-[900px]:flex-col">
         <div className="">
           <NewsCarusel id={id} />
         </div>

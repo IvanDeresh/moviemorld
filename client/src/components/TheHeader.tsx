@@ -1,11 +1,12 @@
 "use client";
 import { cinema } from "@/assets/img";
-import { fetchMovies, fetchSecondMovies } from "@/func";
-import { CurrentPlaying, CurrentPlayingMovie } from "@/types";
+import { useMovies } from "@/func";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 
 const TheHeader = React.memo(() => {
   const getFilteredItems = (query: string, items: any) => {
@@ -21,8 +22,9 @@ const TheHeader = React.memo(() => {
     }
   };
   const [query, setQuery] = useState("");
-  const movies1 = fetchMovies();
-  const movies2 = fetchSecondMovies();
+  const movies1 = useMovies(1);
+  const [click, setClick] = useState(false);
+  const movies2 = useMovies(2);
   function capitalizeFirstLetter(string: any) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
@@ -46,7 +48,7 @@ const TheHeader = React.memo(() => {
   const [isSearched, setIsSearched] = useState(false);
   const session = useSession();
   return (
-    <header className="flex max-2xl:left-[15%] max-sm:left-[0] max-sm:flex  max-sm:justify-around z-50 max-sm:w-[100%] text-white absolute top-[20px] justify-around items-center w-[70%]">
+    <header className="flex max-2xl:left-[15%] top-[10px] max-sm:left-[0] max-sm:flex  max-sm:justify-around z-50 max-sm:w-[100%] text-white absolute  justify-around items-center w-[70%]">
       <Link href="/">
         <Image src={cinema} width={40} alt="logo" />
       </Link>
@@ -56,7 +58,7 @@ const TheHeader = React.memo(() => {
         }}
         onClick={() => setIsSearched(true)}
         placeholder="Serch"
-        className="h-[35px] outline-none max-sm:w-[150px] text-gray-400 w-[300px] bg-gray-100 p-[10px] rounded-md"
+        className="h-[35px] outline-none max-sm:w-[150px] text-gray-400 w-[300px] bg-[#141414] p-[10px] rounded-md"
       />
 
       {isSearched && (
@@ -125,18 +127,63 @@ const TheHeader = React.memo(() => {
           Recomended
         </Link>
       </ul>
-      {session.data?.user ? (
-        <div></div>
-      ) : (
-        <Link
-          href="/pages/sign-in"
-          className="hover:text-[white] flex justify-center items-center text-[#8D090D] hover:bg-[#8D090D] transition-colors duration-500 bg-gray-100 w-[150px] h-[40px] rounded-xl"
-        >
-          Sign in
-        </Link>
-      )}
+      <div className=" max-xl:hidden">
+        {session.data?.user ? null : (
+          <Link
+            href="/pages/sign-in"
+            className="hover:text-[white] flex  justify-center items-center text-[#8D090D] hover:bg-[#8D090D] transition-colors duration-500 bg-gray-100 w-[150px] h-[40px] rounded-xl"
+          >
+            Sign in
+          </Link>
+        )}
+      </div>
+      <button
+        className="hidden w-[40px] h-[40px] bg-[#8d090d] hover:bg-[#fff] hover:text-[#8d090d] duration-700 max-xl:justify-center max-xl:items-center rounded-md max-xl:flex"
+        onClick={() => setClick(!click)}
+      >
+        {click === true ? <CloseIcon /> : <MenuIcon />}
+      </button>
+      <div
+        className={`absolute  ${
+          click ? "flex" : "hidden"
+        } bg-[#121212] w-[200px] min-[1280px]:hidden flex-col items-center py-[20px] h-[300px] top-[70px] rounded-md right-[30px]`}
+      >
+        <h2 className="text-[#8d090d] font-montserrat text-[20px] font-bold">
+          MovieWorld
+        </h2>
+        <ul className="flex flex-col gap-[5px] my-[20px]">
+          <Link
+            className="hover:text-[#8D090D] transition-colors duration-500"
+            href="/"
+          >
+            Home
+          </Link>
+          <Link
+            className="hover:text-[#8D090D] transition-colors duration-500"
+            href="/pages/profile"
+          >
+            Profile
+          </Link>
+          <Link
+            className="hover:text-[#8D090D] transition-colors duration-500"
+            href="/pages/recomended"
+          >
+            Recomended
+          </Link>
+        </ul>
+        {session.data?.user ? null : (
+          <Link
+            href="/pages/sign-in"
+            className="hover:text-[white] flex mt-[50px] justify-center items-center text-[#8D090D] hover:bg-[#8D090D] transition-colors duration-500 bg-gray-100 w-[150px] h-[40px] rounded-xl"
+          >
+            Sign in
+          </Link>
+        )}
+      </div>
     </header>
   );
 });
+
+TheHeader.displayName = "header";
 
 export default TheHeader;
