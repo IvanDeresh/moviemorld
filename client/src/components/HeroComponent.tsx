@@ -25,5 +25,6 @@ const HeroComponent = React.memo(({ id }: { id: number }) => {
     </div>
   );
 });
+
 HeroComponent.displayName = "Hero Component";
 export default HeroComponent;

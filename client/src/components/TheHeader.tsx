@@ -24,7 +24,6 @@ const TheHeader = React.memo(() => {
   const [query, setQuery] = useState("");
   const movies1 = useMovies(1);
   const [click, setClick] = useState(false);
-  const movies2 = useMovies(2);
   function capitalizeFirstLetter(string: any) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
@@ -40,10 +39,6 @@ const TheHeader = React.memo(() => {
   const filteredItems = getFilteredItems(
     formatMovieTitle(query),
     movies1?.results
-  );
-  const filteredItems2 = getFilteredItems(
-    formatMovieTitle(query),
-    movies2?.results
   );
   const [isSearched, setIsSearched] = useState(false);
   const session = useSession();
@@ -85,29 +80,10 @@ const TheHeader = React.memo(() => {
                 </div>
               </Link>
             ))}
-          {Array.isArray(filteredItems2) &&
-            filteredItems2.length > 0 &&
-            filteredItems2.map((movie: any) => (
-              <Link
-                href={`/pages/cinema/order/${movie.id}`}
-                className="h-[60px] w-full flex justify-between items-center"
-                key={movie.id}
-              >
-                <Image
-                  src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-                  alt={movie.title}
-                  width={40}
-                  height={40}
-                />
-                <div className="hover:text-[#8D090D] transition-colors duration-500">
-                  {movie.title}
-                </div>
-              </Link>
-            ))}
         </div>
       )}
 
-      <ul className=" w-[30%] max-xl:hidden text-[#121212] flex justify-between">
+      <ul className=" w-[30%] max-xl:hidden  flex justify-between">
         <Link
           className="hover:text-[#8D090D] transition-colors duration-500"
           href="/"
@@ -151,7 +127,7 @@ const TheHeader = React.memo(() => {
         <h2 className="text-[#8d090d] font-montserrat text-[20px] font-bold">
           MovieWorld
         </h2>
-        <ul className="flex text-[#121212] flex-col gap-[5px] my-[20px]">
+        <ul className="flex  flex-col gap-[5px] my-[20px]">
           <Link
             className="hover:text-[#8D090D] transition-colors duration-500"
             href="/"
