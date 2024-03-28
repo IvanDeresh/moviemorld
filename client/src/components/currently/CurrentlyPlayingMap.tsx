@@ -1,11 +1,14 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useMovies } from "@/func";
 import Link from "next/link";
 import OrderButton from "@/components/OrderButton";
 const CurrentlyPlayingMap = React.memo(() => {
-  const movies = useMovies(2);
+  const [page, setPage] = useState(2);
+  const movies = useMovies(page);
+
   type MovieMap = { [key: number]: boolean };
   const [hoveredMovies, setHoveredMovies] = useState<MovieMap>({});
   return (
@@ -49,7 +52,7 @@ const CurrentlyPlayingMap = React.memo(() => {
               </div>
               {hoveredMovies[movie.id] && (
                 <Link
-                  href={`/pages/cinema/order/${movie.id}`}
+                  href={`/pages/cinema/order/${movie.id}?page=${page}`}
                   className="absolute top-0 left-0 w-[100%] h-full flex justify-center items-center bg-black bg-opacity-50"
                 >
                   <OrderButton />
@@ -58,6 +61,14 @@ const CurrentlyPlayingMap = React.memo(() => {
             </div>
           </Link>
         ))}
+      <div
+        onClick={() => {
+          setPage(page + 1);
+        }}
+        className="w-[150px]  hover:text-[#fff] text-[#8d090d] transition-colors duration-500 flex justify-center items-center self-center ml-[50px] hover:bg-[#8D090D] h-[50px] bg-[#0e0d0d] rounded-md"
+      >
+        NEXT
+      </div>
     </div>
   );
 });

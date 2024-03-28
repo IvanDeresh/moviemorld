@@ -1,22 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import PaymentIcon from "@mui/icons-material/Payment";
 const OrderModelWindow = ({
   modalVisibility,
+  title,
   setModalVisibility,
   purchaes,
+  time,
+  numberSeat,
 }: {
   modalVisibility: boolean;
   purchaes: number;
+  title: string;
+  time: string;
+  numberSeat: number[];
   setModalVisibility: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const session = useSession();
   const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(session.data?.user?.email || "");
   const [promo, setPromo] = useState("");
   const [number, setNumber] = useState("");
   const [cartNumber, setCartNumber] = useState("");
   const [checked, setChecked] = useState(false);
+  const router = useRouter();
+  const payment = cartNumber.trim() ? true : false;
   const handleChecked = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(e.target.checked);
+  };
+  useEffect(() => {
+    if (!session?.data?.user) {
+      router.replace("/pages/sign-in");
+    }
+  }, [session, router]);
+  const handleSubmit = (e: any) => {
+    axios.post("http://localhost:3003/ticket/your-tickets", {
+      name: fullName,
+      email: email,
+      title: title,
+      payment: payment,
+      time: time,
+      numberSeat: numberSeat,
+    });
   };
   return (
     <main
@@ -26,8 +53,9 @@ const OrderModelWindow = ({
       }`}
     >
       <form
+        onSubmit={handleSubmit}
         onClick={(e) => e.stopPropagation()}
-        className="p-[20px]  flex flex-col items-center py-[50px] bg-white w-[694px] h-[749px]"
+        className="p-[20px]  mt-[50px] flex flex-col items-center py-[50px] bg-white max-md:w-[90%] w-[694px] h-[749px]"
       >
         <h1 className="text-[30px]">ORDER</h1>
         <div className="gap-[10px] flex flex-col">
@@ -38,7 +66,7 @@ const OrderModelWindow = ({
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               type="text"
-              className="w-[470px] p-[10px] outline-none h-[38.5px] rounded-md border border-[#CFCFCF]"
+              className="w-[470px] max-md:w-[100%] p-[10px] outline-none h-[38.5px] rounded-md border border-[#CFCFCF]"
             />
           </div>
           <div className="flex flex-col">
@@ -48,7 +76,7 @@ const OrderModelWindow = ({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="email"
-              className="w-[470px] p-[10px] outline-none h-[38.5px] rounded-md border border-[#CFCFCF]"
+              className="w-[470px] max-md:w-[100%] p-[10px] outline-none h-[38.5px] rounded-md border border-[#CFCFCF]"
             />
           </div>
           <div className="flex justify-center gap-[13px] items-center">
@@ -59,7 +87,7 @@ const OrderModelWindow = ({
                 value={promo}
                 onChange={(e) => setPromo(e.target.value)}
                 type="text"
-                className="w-[319px] p-[10px] outline-none h-[38.5px] rounded-md border border-[#CFCFCF]"
+                className="w-[319px] max-md:w-[100%] p-[10px] outline-none h-[38.5px] rounded-md border border-[#CFCFCF]"
               />
             </div>
             <button className="w-[136px] mt-[24px] h-[38.5px] border border-[#CFCFCF] rounded-md">
@@ -74,12 +102,12 @@ const OrderModelWindow = ({
               value={number}
               onChange={(e) => setNumber(e.target.value)}
               type="tel"
-              className="w-[470px] p-[10px] outline-none h-[38.5px] rounded-md border border-[#CFCFCF]"
+              className="w-[470px] max-md:w-[100%] p-[10px] outline-none h-[38.5px] rounded-md border border-[#CFCFCF]"
             />
           </div>
           <div className="">
             <label>Payment</label>
-            <div className="relative w-[470px] h-[38.5px] rounded-md border border-[#CFCFCF]">
+            <div className="relative w-[470px] max-md:w-[100%] h-[38.5px] rounded-md border border-[#CFCFCF]">
               <div className="relative">
                 <div className="relative">
                   <select className="flex items-center appearance-none w-full  outline-none h-[33px] rounded  px-4  text-gray-700 cursor-pointer  ">
@@ -110,7 +138,7 @@ const OrderModelWindow = ({
               value={cartNumber}
               onChange={(e) => setCartNumber(e.target.value)}
               type="text"
-              className="w-[470px] p-[10px] outline-none h-[38.5px] rounded-md border border-[#CFCFCF]"
+              className="w-[470px] max-md:w-[100%] p-[10px] outline-none h-[38.5px] rounded-md border border-[#CFCFCF]"
             />
             <div className="absolute top-[30px] right-[10px]">
               <PaymentIcon />
@@ -126,7 +154,10 @@ const OrderModelWindow = ({
           />
           <p className="text-[12px]">Remember card information</p>
         </div>
-        <button className="w-[200px] mt-[20px] h-[35px] text-white rounded-xl bg-[#8D090D]">
+        <button
+          type="submit"
+          className="w-[200px] mt-[20px] h-[35px] text-white rounded-xl bg-[#8D090D]"
+        >
           Purchaes: {purchaes}$
         </button>
       </form>

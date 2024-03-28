@@ -107,7 +107,7 @@ const TheHeader = React.memo(() => {
         </div>
       )}
 
-      <ul className=" w-[30%] max-xl:hidden  flex justify-between">
+      <ul className=" w-[30%] max-xl:hidden text-[#121212] flex justify-between">
         <Link
           className="hover:text-[#8D090D] transition-colors duration-500"
           href="/"
@@ -138,7 +138,7 @@ const TheHeader = React.memo(() => {
         )}
       </div>
       <button
-        className="hidden w-[40px] h-[40px] bg-[#8d090d] hover:bg-[#fff] hover:text-[#8d090d] duration-700 max-xl:justify-center max-xl:items-center rounded-md max-xl:flex"
+        className="hidden w-[40px] h-[40px] active:bg-[#f84248] bg-[#8d090d] hover:bg-[#fff] hover:text-[#8d090d] duration-700 max-xl:justify-center max-xl:items-center rounded-md max-xl:flex"
         onClick={() => setClick(!click)}
       >
         {click === true ? <CloseIcon /> : <MenuIcon />}
@@ -151,7 +151,7 @@ const TheHeader = React.memo(() => {
         <h2 className="text-[#8d090d] font-montserrat text-[20px] font-bold">
           MovieWorld
         </h2>
-        <ul className="flex flex-col gap-[5px] my-[20px]">
+        <ul className="flex text-[#121212] flex-col gap-[5px] my-[20px]">
           <Link
             className="hover:text-[#8D090D] transition-colors duration-500"
             href="/"

@@ -6,7 +6,7 @@ const GoogleButton = () => {
   const callbackUrl = "/pages/profile";
   return (
     <div
-      className=" bg-white text-black cursor-pointer w-[200px] h-[50px] rounded-xl text-[15px] leading-6 flex flex-col justify-center items-center"
+      className=" bg-white text-black hover:text-white duration-700 hover:bg-[#8d090d] cursor-pointer w-[200px] h-[50px] rounded-xl text-[15px] leading-6 flex flex-col justify-center items-center"
       onClick={() => signIn("google", { callbackUrl })}
     >
       Sign in with Google

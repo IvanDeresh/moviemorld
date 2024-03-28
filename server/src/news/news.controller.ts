@@ -22,7 +22,10 @@ export class NewsController {
   findAll() {
     return this.newsService.findAll();
   }
-
+  // @Post('/addAll')
+  // addAll() {
+  //   return this.newsService.addAll();
+  // }
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.newsService.findOne(parseInt(id));

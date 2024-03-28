@@ -2,8 +2,7 @@ import type { AuthOptions, User } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import axios from "axios";
-import dotenv from "dotenv";
-
+import * as dotenv from "dotenv";
 dotenv.config();
 export const authConfig: AuthOptions = {
   providers: [

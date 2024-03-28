@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+import * as dotenv from "dotenv";
+dotenv.config();
 const nextConfig = {
   images: {
     domains: [
@@ -13,6 +15,10 @@ const nextConfig = {
       "variety.com",
       "encrypted-tbn0.gstatic.com",
     ],
+  },
+  env: {
+    CLIENT_ID: process.env.CLIENT_ID,
+    CLIENT_SECRET: process.env.CLIENT_SECRET,
   },
 };
 

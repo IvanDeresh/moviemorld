@@ -48,6 +48,7 @@ const MovieCard = ({
   const seats = [];
   const dispatch = useDispatch();
   const seatetes = useSelector((state: RootState) => state.seates.value);
+  const numberSeatsArray: number[] = seatetes.map((seat) => seat.number_seats);
   const purchaes = seatetes
     .reduce((total, seat) => total + seat.price, 0)
     .toFixed(2);
@@ -221,6 +222,9 @@ const MovieCard = ({
         </div>
       </div>
       <OrderModelWindow
+        numberSeat={numberSeatsArray}
+        title={title}
+        time={time}
         modalVisibility={modalVisibility}
         purchaes={Number(purchaes)}
         setModalVisibility={setModalVisibility}

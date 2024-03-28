@@ -1,11 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { NewsModel } from './news/schemas/news.schema';
 import * as cookieParser from 'cookie-parser';
 import * as cors from 'cors';
 import * as session from 'express-session';
 import * as passport from 'passport';
-import { ConfigService } from '@nestjs/config';
-
+import { movieNewsData } from './news/data';
+const PORT = process.env.PORT || 3003;
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(cors());
@@ -21,11 +22,8 @@ async function bootstrap() {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  const configService = app.get(ConfigService);
-  const PORT = configService.get('PORT');
-
   try {
-    await app.listen(3003 || 3005);
+    await app.listen(PORT);
     console.log(`Nest application started successfully. http://localhost:3003`);
   } catch (error) {
     console.error('Error starting Nest application:', error);

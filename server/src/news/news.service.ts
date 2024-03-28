@@ -3,6 +3,7 @@ import { News, NewsModel } from './schemas/news.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { MovieNewsDto } from './dtos/user.dto';
+import { movieNewsData } from './data';
 @Injectable()
 export class NewsService {
   constructor(
@@ -15,7 +16,9 @@ export class NewsService {
   async findAll() {
     return await this.userModel.find();
   }
-
+  async addAll() {
+    return await this.userModel.insertMany(movieNewsData);
+  }
   async findOne(id: number) {
     return await this.userModel.findOne({ id });
   }
