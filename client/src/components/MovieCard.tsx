@@ -48,6 +48,7 @@ const MovieCard = ({
   const seats = [];
   const dispatch = useDispatch();
   const seatetes = useSelector((state: RootState) => state.seates.value);
+  const numberSeatsArray: number[] = seatetes.map((seat) => seat.number_seats);
   const purchaes = seatetes
     .reduce((total, seat) => total + seat.price, 0)
     .toFixed(2);
@@ -58,35 +59,19 @@ const MovieCard = ({
     }
   }
 
-  useEffect(() => {
-    const handleWindowResize = () => {
-      const widthOfWindow = window.innerWidth;
-      setBackdropOrPoster(
-        widthOfWindow <= 600 || widthOfWindow >= 1200
-          ? poster_path
-          : backdrop_path
-      );
-    };
-
-    window.addEventListener("resize", handleWindowResize);
-
-    return () => {
-      window.removeEventListener("resize", handleWindowResize);
-    };
-  }, [backdrop_path, poster_path]);
   return (
-    <div className="flex max-xl:flex-col max-xl:flex font-montserrat text-white">
-      <div className="relative ">
+    <div className="flex max-xl:flex max-xl:flex-col h-auto items-center  font-montserrat text-white">
+      <div className="relative max-xl:h-[1000px]">
         <Image
           src={`https://image.tmdb.org/t/p/original${backdropOrPoster}`}
           alt={title}
-          width={backdropOrPoster === poster_path ? 610 : 1200}
+          width={600}
           height={2000}
         />
         <div className="border-b-2 border-red-700 top-[200px] max-xl:top-[100px] left-[100px] text-[20px] font-bold absolute">
           {title}
         </div>
-        <div className="flex  max-md:left-[40px] justify-around flex-col items-center py-[50px] w-[409px] h-[524px] bg-[#121212] absolute max-xl:top-[170px] top-[270px] left-[100px]">
+        <div className="flex justify-around flex-col items-center py-[50px] w-[409px] h-[524px] bg-[#121212] absolute  top-[270px] max-xl:top-[150px] left-[100px] max-sm:left-[3%]">
           <h1 className="text-[25px]">SELECTED SEATS</h1>
           <div
             className={`flex flex-col w-[70%] gap-[20px] ${
@@ -132,7 +117,7 @@ const MovieCard = ({
           </div>
         </div>
       </div>
-      <div className="max-xs:mt-[150px] flex max-xl:ml-[150px] max-xl:w-[40%] flex-col gap-[20px] justify-center items-center w-[50%]">
+      <div className="flex flex-col gap-[20px] mb-[50px] justify-center items-center w-[50%]">
         <div className="flex flex-col justify-center items-center gap-[20px]">
           <h2>Date</h2>
           <div className="flex gap-[10px]">
@@ -237,6 +222,9 @@ const MovieCard = ({
         </div>
       </div>
       <OrderModelWindow
+        numberSeat={numberSeatsArray}
+        title={title}
+        time={time}
         modalVisibility={modalVisibility}
         purchaes={Number(purchaes)}
         setModalVisibility={setModalVisibility}

@@ -2,11 +2,15 @@
 import { useMovies } from "@/func";
 import React from "react";
 
+<<<<<<< HEAD
 const HeroComponent = React.memo(function HeroComponent({
   id,
 }: {
   id: number;
 }) {
+=======
+const HeroComponent = React.memo(({ id }: { id: number }) => {
+>>>>>>> auth
   const movies = useMovies(1);
   return (
     <div className="">
@@ -30,4 +34,5 @@ const HeroComponent = React.memo(function HeroComponent({
   );
 });
 
+HeroComponent.displayName = "Hero Component";
 export default HeroComponent;

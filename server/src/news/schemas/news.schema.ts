@@ -5,7 +5,7 @@ export type NewsDocument = News & Document;
 
 @Schema()
 export class News {
-  @Prop({ default: Date.now })
+  @Prop({ default: '00:00' })
   date: string;
 
   @Prop({ required: true })

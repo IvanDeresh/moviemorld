@@ -12,11 +12,10 @@ const NewsCarusel = ({ id }: { id: number }) => {
             <div
               style={{
                 backgroundImage: `url(${item.image})`,
-                width: "500px",
-                height: "500px",
+
                 backgroundSize: "cover",
               }}
-              className="rounded-2xl text-white flex flex-col justify-end p-[40px] gap-[10px]"
+              className="rounded-2xl w-[500px] h-[500px] max-sm:w-[90vw] max-sm:ml-[10px] text-white flex flex-col justify-end p-[40px] gap-[10px]"
             >
               <div className="flex items-top gap-[40px]">
                 <div className="text-[14px]">{item.title}</div>

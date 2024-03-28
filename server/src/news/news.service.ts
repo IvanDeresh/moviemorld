@@ -1,26 +1,38 @@
-import { Injectable } from '@nestjs/common';
-import { CreateNewsDto } from './dto/create-news.dto';
-import { UpdateNewsDto } from './dto/update-news.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { News, NewsModel } from './schemas/news.schema';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { MovieNewsDto } from './dtos/user.dto';
+import { movieNewsData } from './data';
 @Injectable()
 export class NewsService {
-  create(createNewsDto: CreateNewsDto) {
-    return 'This action adds a new news';
+  constructor(
+    @InjectModel(News.name) private readonly userModel: Model<News>,
+  ) {}
+  async create(createNewsDto: any) {
+    const news = await this.userModel.create({ ...createNewsDto });
+    return news.save();
+  }
+  async findAll() {
+    return await this.userModel.find();
+  }
+  async addAll() {
+    return await this.userModel.insertMany(movieNewsData);
+  }
+  async findOne(id: number) {
+    return await this.userModel.findOne({ id });
   }
 
-  findAll() {
-    return NewsModel.find();
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} news`;
-  }
-
-  update(id: number, updateNewsDto: UpdateNewsDto) {
-    return `This action updates a #${id} news`;
+  async update(id: number, attrs: Partial<MovieNewsDto>) {
+    const news = await this.userModel.findOne({ id });
+    if (!news) {
+      throw new NotFoundException('News not found');
+    }
+    Object.assign(news, attrs);
+    return news.save();
   }
 
   remove(id: number) {
-    return;
+    return this.userModel.deleteOne({ id });
   }
 }
