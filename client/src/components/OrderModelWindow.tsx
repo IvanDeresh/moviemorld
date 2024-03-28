@@ -71,13 +71,9 @@ const OrderModelWindow = ({
           </div>
           <div className="flex flex-col">
             <label>Email</label>
-            <input
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-              className="w-[470px] max-md:w-[100%] p-[10px] outline-none h-[38.5px] rounded-md border border-[#CFCFCF]"
-            />
+            <div className="w-[470px] flex justify-start items-center max-md:w-[100%] p-[10px] outline-none h-[38.5px] rounded-md border bg-slate-200 border-[#CFCFCF]">
+              {email}
+            </div>
           </div>
           <div className="flex justify-center gap-[13px] items-center">
             <div className="flex flex-col">

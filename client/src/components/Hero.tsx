@@ -86,11 +86,7 @@ const Hero = React.memo(() => {
     </div>
   );
 });
-<<<<<<< HEAD
-Hero.displayName = "Hero";
-=======
 
 Hero.displayName = "Hero";
 
->>>>>>> auth
 export default Hero;

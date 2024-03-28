@@ -1,11 +1,7 @@
 "use client";
 import { cinema } from "@/assets/img";
 import { useMovies } from "@/func";
-<<<<<<< HEAD
-import { CurrentPlaying, CurrentPlayingMovie } from "@/types";
-=======
 import { useSession } from "next-auth/react";
->>>>>>> auth
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -27,10 +23,7 @@ const TheHeader = React.memo(() => {
   };
   const [query, setQuery] = useState("");
   const movies1 = useMovies(1);
-<<<<<<< HEAD
-=======
   const [click, setClick] = useState(false);
->>>>>>> auth
   function capitalizeFirstLetter(string: any) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
@@ -50,11 +43,7 @@ const TheHeader = React.memo(() => {
   const [isSearched, setIsSearched] = useState(false);
   const session = useSession();
   return (
-<<<<<<< HEAD
-    <header className="flex max-2xl:left-[15%] max-sm:left-[0] max-sm:flex  max-sm:justify-around z-50 max-sm:w-[100%] text-white absolute top-[20px] justify-around items-center w-[70%]">
-=======
     <header className="flex max-2xl:left-[15%] top-[10px] max-sm:left-[0] max-sm:flex  max-sm:justify-around z-50 max-sm:w-[100%] text-white absolute  justify-around items-center w-[70%]">
->>>>>>> auth
       <Link href="/">
         <Image src={cinema} width={40} alt="logo" />
       </Link>
@@ -86,11 +75,7 @@ const TheHeader = React.memo(() => {
                   width={40}
                   height={40}
                 />
-<<<<<<< HEAD
-                <div className="hover:text-[#65f5e6] transition-colors duration-500">
-=======
                 <div className="hover:text-[#8D090D] transition-colors duration-500">
->>>>>>> auth
                   {movie.title}
                 </div>
               </Link>
@@ -115,11 +100,7 @@ const TheHeader = React.memo(() => {
           className="hover:text-[#8D090D] transition-colors duration-500"
           href="/pages/recomended"
         >
-<<<<<<< HEAD
-          Order
-=======
           Recomended
->>>>>>> auth
         </Link>
       </ul>
       <div className=" max-xl:hidden">

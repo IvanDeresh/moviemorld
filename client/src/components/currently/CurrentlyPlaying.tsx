@@ -8,16 +8,13 @@ import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-<<<<<<< HEAD:client/src/components/CurrentlyPlaying.tsx
-import OrderButton from "./OrderButton";
-=======
 import OrderButton from "../OrderButton";
->>>>>>> auth:client/src/components/currently/CurrentlyPlaying.tsx
 import { useMovies } from "@/func";
 
 const CurrentlyPlaying = React.memo(() => {
   const sliderRef = useRef<Slider>(null);
-  const movies = useMovies(2);
+  const [page, setPage] = useState(2);
+  const movies = useMovies(page);
 
   const settings = {
     dots: false,
@@ -110,16 +107,12 @@ const CurrentlyPlaying = React.memo(() => {
                       </p>
                     </div>
                     <p className="text-[12px]">
-<<<<<<< HEAD:client/src/components/CurrentlyPlaying.tsx
-                      {movie.vote_average.toFixed(1)} : IMD&apos;b
-=======
                       {movie.vote_average.toFixed(1)} : IMDb
->>>>>>> auth:client/src/components/currently/CurrentlyPlaying.tsx
                     </p>
                   </div>
                   {hoveredMovies[movie.id] && (
                     <Link
-                      href={`/pages/cinema/order/${movie.id}`}
+                      href={`/pages/cinema/order/${movie.id}?page=${page}`}
                       className="absolute w-[200px] h-[300px]  flex justify-center items-center bg-black bg-opacity-50"
                     >
                       <OrderButton />
@@ -133,11 +126,5 @@ const CurrentlyPlaying = React.memo(() => {
     </div>
   );
 });
-<<<<<<< HEAD:client/src/components/CurrentlyPlaying.tsx
 CurrentlyPlaying.displayName = "Currently";
-=======
-
-CurrentlyPlaying.displayName = "Currently Playing";
-
->>>>>>> auth:client/src/components/currently/CurrentlyPlaying.tsx
 export default CurrentlyPlaying;

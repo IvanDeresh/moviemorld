@@ -6,10 +6,6 @@ import NewsCarusel from "./NewsCarusel";
 const NewsComponent = () => {
   const [id, setId] = useState(4);
   const news = useNewsData();
-<<<<<<< HEAD
-=======
-
->>>>>>> auth
   return (
     <div className="text-gray-500 font-montserrat  my-[100px]">
       <h1 className="text-[20px] text-black">Latest News</h1>

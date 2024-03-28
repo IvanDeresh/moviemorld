@@ -7,18 +7,14 @@ import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-<<<<<<< HEAD:client/src/components/ComingSoon.tsx
-import OrderButton from "./OrderButton";
 import { useMovies } from "@/func";
-=======
 import OrderButton from "../OrderButton";
-import { useMovies } from "@/func";
 
->>>>>>> auth:client/src/components/coming/ComingSoon.tsx
 type MovieMap = { [key: number]: boolean };
 
 const ComingSoon = React.memo(() => {
-  const movies = useMovies(1);
+  const [page, setPage] = useState(1);
+  const movies = useMovies(page);
   const [hoveredMovies, setHoveredMovies] = useState<MovieMap>({});
   const sliderRef = useRef<Slider>(null);
 
@@ -110,16 +106,13 @@ const ComingSoon = React.memo(() => {
                       </p>
                     </div>
                     <p className="text-[12px]">
-<<<<<<< HEAD:client/src/components/ComingSoon.tsx
                       {movie.vote_average.toFixed(1)} : IMD&apos;b
-=======
                       {movie.vote_average.toFixed(1)} : IMDb
->>>>>>> auth:client/src/components/coming/ComingSoon.tsx
                     </p>
                   </div>
                   {hoveredMovies[movie.id] && (
                     <Link
-                      href={`/pages/cinema/order/${movie.id}`}
+                      href={`/pages/cinema/order/${movie.id}?page=${page}`}
                       className="absolute top-0  max-xl:w-[100%] max-xl:left-0 w-[70%]  left-[42px] h-full flex justify-center items-center bg-black bg-opacity-50"
                     >
                       <OrderButton />
@@ -133,11 +126,6 @@ const ComingSoon = React.memo(() => {
     </div>
   );
 });
-<<<<<<< HEAD:client/src/components/ComingSoon.tsx
 ComingSoon.displayName = "Coming Soon";
-=======
 
-ComingSoon.displayName = "ComingSoon"; // Display name added
-
->>>>>>> auth:client/src/components/coming/ComingSoon.tsx
 export default ComingSoon;

@@ -8,19 +8,6 @@ const TheFooter = () => {
     <footer className="flex mb-[100px] font-montserrat text-gray-500 bg-gray-50 flex-col justify-around items-center w-full mt-[20px]">
       <div className="flex justify-around w-[80%] my-[20px]">
         <div className="leading-7">
-<<<<<<< HEAD
-          <h2 className="font-bold text-[15px]">PROFILE</h2>
-          <div className="text-[12px] cursor-pointer">FAQ&apos;s</div>
-          <div className="text-[12px] cursor-pointer">Procong plans</div>
-          <div className="text-[12px] cursor-pointer">Order Tracking</div>
-          <div className="text-[12px] cursor-pointer">Returns</div>
-        </div>
-        <div className="leading-7">
-          <h2 className="font-bold text-[15px] ">RECENT POSTS</h2>
-          <div className="text-[12px] cursor-pointer">Touch of uniquness</div>
-          <div className="text-[12px] cursor-pointer">
-            Offices you won&apos;t forget
-=======
           <h2 className="font-bold text-[15px] max-md:text-[12px]">PROFILE</h2>
           <div className="text-[12px] max-md:text-[10px] cursor-pointer">
             FAQs
@@ -44,21 +31,10 @@ const TheFooter = () => {
           </div>
           <div className="text-[12px] max-md:text-[10px] cursor-pointer">
             Offices you wont forget
->>>>>>> auth
           </div>
           <div className="text-[12px] cursor-pointer">Cicilan</div>
         </div>
         <div className="leading-7 ">
-<<<<<<< HEAD
-          <h2 className="font-bold text-[15px]">CUSTOMER</h2>
-          <div className="text-[12px] cursor-pointer">
-            Help &amp; contact us
-          </div>
-          <div className="text-[12px] cursor-pointer">Return </div>
-          <div className="text-[12px] cursor-pointer">Online stores</div>
-          <div className="text-[12px] cursor-pointer">
-            Terms &amp; cordition
-=======
           <h2 className="font-bold max-md:text-[12px] text-[15px]">CUSTOMER</h2>
           <div className="text-[12px] max-md:text-[10px] cursor-pointer">
             Help & contact us
@@ -71,7 +47,6 @@ const TheFooter = () => {
           </div>
           <div className="text-[12px] max-md:text-[10px] cursor-pointer">
             Terms & cordition
->>>>>>> auth
           </div>
         </div>
         <div className="leading-10">
