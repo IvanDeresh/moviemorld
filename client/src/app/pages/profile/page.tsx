@@ -5,6 +5,7 @@ import { signOut, useSession } from "next-auth/react";
 import { useMovies } from "@/func";
 import Image from "next/image";
 import axios from "axios";
+import Link from "next/link";
 
 type Ticket = {
   name: string;
@@ -94,7 +95,8 @@ const Page = () => {
               <h1 className="text-">Recommended for you</h1>
               <div className="gap-[10px] overflow-x-hidden h-[250px]  flex">
                 {movies?.results.map((movie) => (
-                  <div
+                  <Link
+                    href={`/pages/cinema/order/${movie.id}`}
                     key={movie.id}
                     className="w-[100px] h-[145px] border-2 border-[#1f1e1e]"
                   >
@@ -104,7 +106,7 @@ const Page = () => {
                       width={100}
                       height={150}
                     />
-                  </div>
+                  </Link>
                 ))}
               </div>
 
